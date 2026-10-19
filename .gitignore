@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+saves/diary.json
+saves/runs.jsonl

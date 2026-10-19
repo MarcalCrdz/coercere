@@ -1,0 +1,94 @@
+{
+  "id": "hooded_man",
+  "name": "o encapuzado",
+  "hp": 30,
+  "vigor": 0,
+  "regen": 0,
+  "actions": [
+    "metal_strike",
+    "sigil_flame",
+    "offer_blood"
+  ],
+  "behavior": {
+    "rules": [
+      {
+        "when": {
+          "self_state": "blood_offered"
+        },
+        "do": "sigil_flame"
+      },
+      {
+        "when": {
+          "opponent_last": "fire",
+          "self_uses_below": {
+            "offer_blood": 1
+          }
+        },
+        "do": "offer_blood",
+        "chance": 0.7
+      },
+      {
+        "when": {
+          "opponent_last": "fire",
+          "self_hp_frac_below": 0.5,
+          "self_uses_below": {
+            "offer_blood": 2
+          }
+        },
+        "do": "offer_blood",
+        "chance": 0.6
+      },
+      {
+        "when": {
+          "opponent_last": "dodge"
+        },
+        "do": "metal_strike",
+        "chance": 0.8
+      },
+      {
+        "when": {
+          "opponent_last": "offer_blood"
+        },
+        "do": "sigil_flame",
+        "chance": 0.8
+      }
+    ],
+    "default": [
+      {
+        "do": "metal_strike",
+        "weight": 1
+      },
+      {
+        "do": "sigil_flame",
+        "weight": 1
+      }
+    ]
+  },
+  "observe": [
+    {
+      "id": "base",
+      "text": "Um homem encapuzado. O braço esquerdo é de metal escuro, coberto de sigilos finos como veias. Ele não tem pressa."
+    },
+    {
+      "id": "sigils_red",
+      "when": {
+        "state": "blood_offered"
+      },
+      "text": "Os sigilos do braço brilham em vermelho molhado. Há sangue escorrendo pelo metal."
+    },
+    {
+      "id": "wounded",
+      "when": {
+        "hp_frac_below": 0.5
+      },
+      "text": "A capa dele está chamuscada e a respiração, pesada."
+    },
+    {
+      "id": "nearly_dead",
+      "when": {
+        "hp_frac_below": 0.2
+      },
+      "text": "Ele mal se mantém em pé."
+    }
+  ]
+}

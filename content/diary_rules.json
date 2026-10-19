@@ -1,0 +1,47 @@
+[
+  {
+    "id": "start",
+    "match": {"kind": "start"},
+    "text": "Acordei num corredor de pedra úmida. Sei, sem saber como, que há fogo dentro de mim."
+  },
+  {
+    "id": "arm",
+    "match": {"kind": "observe_line", "line_id": "base"},
+    "text": "O encapuzado tem um braço esquerdo de metal coberto de sigilos finos."
+  },
+  {
+    "id": "sigils_red",
+    "match": {"kind": "observe_line", "line_id": "sigils_red"},
+    "text": "Os sigilos do braço dele estavam vermelhos e molhados de sangue."
+  },
+  {
+    "id": "enemy_cut_finger",
+    "match": {"kind": "declare", "actor": "hooded_man", "action": "offer_blood"},
+    "text": "O encapuzado mordeu o próprio dedo até sangrar e passou o sangue pelos sigilos do braço."
+  },
+  {
+    "id": "enemy_three_flames",
+    "match": {"kind": "rule", "rule": "blood_amplifies_sigil", "actor": "hooded_man"},
+    "text": "Com o sangue nos sigilos, o braço dele lançou três chamas de uma vez."
+  },
+  {
+    "id": "player_blood_fire",
+    "match": {"kind": "rule", "rule": "blood_amplifies_innate", "actor": "player"},
+    "text": "Raspei a palma até sangrar e soltei o fogo logo depois. A chama saiu muito maior."
+  },
+  {
+    "id": "dodged_projectile",
+    "match": {"kind": "dodged", "actor": "hooded_man"},
+    "text": "Joguei meu corpo para o lado e o que vinha pelo ar passou sem me tocar."
+  },
+  {
+    "id": "dodged_but_hit_melee",
+    "match": {"kind": "hit", "actor": "hooded_man", "action": "metal_strike", "target_dodging": true},
+    "text": "Me joguei de lado, mas o braço de metal me alcançou do mesmo jeito."
+  },
+  {
+    "id": "fire_empty",
+    "match": {"kind": "fail", "actor": "player", "action": "fire"},
+    "text": "Tentei soltar o fogo e nada respondeu. Havia só cinza dentro de mim."
+  }
+]

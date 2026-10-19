@@ -1,0 +1,12 @@
+{
+  "hp": 20,
+  "vigor": 10,
+  "regen": 1,
+  "actions": [
+    "fire",
+    "strike",
+    "dodge",
+    "observe",
+    "offer_blood"
+  ]
+}

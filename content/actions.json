@@ -1,0 +1,73 @@
+{
+  "fire": {
+    "tags": [
+      "fire",
+      "projectile"
+    ],
+    "source": "innate",
+    "damage": 6,
+    "hits": 1,
+    "vigor_cost": 2
+  },
+  "strike": {
+    "tags": [
+      "physical",
+      "melee"
+    ],
+    "source": "body",
+    "damage": 2,
+    "hits": 1
+  },
+  "dodge": {
+    "tags": [
+      "defense"
+    ],
+    "source": "body",
+    "vigor_cost": 1,
+    "sets_states": [
+      {
+        "name": "dodging",
+        "duration": 0
+      }
+    ]
+  },
+  "observe": {
+    "tags": [
+      "perception"
+    ],
+    "source": "body",
+    "observe": true
+  },
+  "offer_blood": {
+    "tags": [
+      "blood"
+    ],
+    "source": "body",
+    "hp_cost": 2,
+    "sets_states": [
+      {
+        "name": "blood_offered",
+        "duration": 1
+      }
+    ]
+  },
+  "sigil_flame": {
+    "tags": [
+      "fire",
+      "projectile"
+    ],
+    "source": "sigil",
+    "damage": 5,
+    "hits": 1
+  },
+  "metal_strike": {
+    "tags": [
+      "physical",
+      "melee",
+      "metal"
+    ],
+    "source": "metal",
+    "damage": 6,
+    "hits": 1
+  }
+}

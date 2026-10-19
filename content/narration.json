@@ -1,0 +1,133 @@
+{
+  "intro": [
+    "Pedra úmida. Cheiro de ferro e cinza.",
+    "Você acorda de pé num corredor estreito, sem lembrar como chegou. Sua palma formiga; você sabe, sem saber como, que existe fogo dentro de você.",
+    "À sua frente, um homem encapuzado espera. Algo metálico range sob a manga dele.",
+    "— Fogo — ele diz, quase para si mesmo. — Sempre fogo."
+  ],
+  "menu": {
+    "fire": {
+      "label": "Soltar o fogo que vive em você",
+      "aliases": ["fogo", "soltar", "queimar", "chama", "bola de fogo"]
+    },
+    "strike": {
+      "label": "Golpear",
+      "aliases": ["golpear", "bater", "atacar", "soco"]
+    },
+    "dodge": {
+      "label": "Jogar-se de lado",
+      "aliases": ["esquivar", "desviar", "lado", "pular"]
+    },
+    "observe": {
+      "label": "Observar",
+      "aliases": ["observar", "olhar", "ver", "examinar"]
+    },
+    "offer_blood": {
+      "label": "Raspar a palma na pedra",
+      "aliases": ["sangue", "cortar", "raspar", "ferir", "machucar"]
+    }
+  },
+  "severity": {"light_max": 3, "medium_max": 6},
+  "actions": {
+    "fire": {
+      "player": {
+        "declare": "Você deixa o calor subir pelo braço e arremessa uma esfera de fogo.",
+        "hit": {
+          "light": ["A chama o lambe de raspão."],
+          "medium": [
+            "A chama o atinge em cheio. Ele cambaleia, mas continua de pé.",
+            "O fogo explode contra o peito dele. A capa solta fumaça."
+          ],
+          "heavy": [
+            "O fogo o engole por um instante. Cheiro de pano e carne queimando.",
+            "A chama o arremessa contra a parede. Ele demora a se levantar."
+          ]
+        },
+        "dodged": "Ele se joga de lado. A chama bate na parede e morre em fagulhas.",
+        "fail": "Você tenta chamar o fogo. Dentro de você, só cinza."
+      }
+    },
+    "strike": {
+      "player": {
+        "declare": "Você avança e desfere um golpe.",
+        "hit": {
+          "light": ["Seu punho acerta a capa e algo duro por baixo."],
+          "medium": ["Seu golpe o acerta com força."],
+          "heavy": ["Seu golpe o acerta com força."]
+        }
+      }
+    },
+    "dodge": {
+      "player": {
+        "declare": "Você se joga para o lado, o corpo inteiro em tensão."
+      }
+    },
+    "observe": {
+      "player": {
+        "declare": "Você prende a respiração e o observa com cuidado."
+      }
+    },
+    "offer_blood": {
+      "player": {
+        "declare": "Você arrasta a palma contra a pedra áspera da parede até a pele ceder. O sangue escorre quente pelos seus dedos."
+      },
+      "hooded_man": {
+        "declare": "Sem pressa, o encapuzado morde a ponta do próprio dedo até sangrar e esfrega o sangue ao longo dos sigilos do braço de metal. Eles ficam vermelhos, molhados e brilhantes.",
+        "say": "— Pague, e ela responde."
+      }
+    },
+    "metal_strike": {
+      "hooded_man": {
+        "declare": "O braço de metal rasga o ar na direção do seu rosto.",
+        "hit": {
+          "light": ["O metal raspa em você."],
+          "medium": [
+            "O braço de metal te acerta no peito. O impacto ressoa nos seus ossos.",
+            "O metal te pega de lado. Você sente as costelas protestarem."
+          ],
+          "heavy": ["O metal te esmaga. Algo estala dentro de você."]
+        },
+        "hit_dodging": "Você se joga de lado, mas ele já estava lá."
+      }
+    },
+    "sigil_flame": {
+      "hooded_man": {
+        "declare": "Os sigilos do braço acendem e uma chama sai da palma de metal.",
+        "hit": {
+          "light": ["A chama te lambe de raspão."],
+          "medium": [
+            "A chama te acerta e a pele do seu braço repuxa.",
+            "O fogo te atinge no ombro. O cheiro de queimado é o seu."
+          ],
+          "heavy": ["O fogo te engole. Você grita sem ouvir o próprio grito."]
+        },
+        "dodged": "Você se joga de lado e a chama passa chiando onde você estava.",
+        "dodged_multi": "Você se joga de lado. As chamas passam por você, uma atrás da outra, e se apagam contra a pedra."
+      }
+    }
+  },
+  "rules": {
+    "blood_amplifies_innate": {
+      "player": "O sangue escorre pelos seus dedos e o fogo dentro de você ruge, maior do que deveria."
+    },
+    "blood_amplifies_sigil": {
+      "hooded_man": "O sangue nos sigilos ferve. O braço dispara chama após chama, sem pausa."
+    }
+  },
+  "body": {
+    "hp": [
+      {"below": 0.8, "text": "Seu corpo dói."},
+      {"below": 0.5, "text": "Sangue escorre por você. Cada movimento pesa."},
+      {"below": 0.25, "text": "A visão escurece nas bordas. Você mal se sustenta."}
+    ],
+    "vigor": [
+      {"below": 0.5, "text": "Seu fôlego queima."},
+      {"below": 0.2, "text": "O fogo dentro de você está curto, quase apagado."},
+      {"below": 0.01, "text": "Dentro de você só restam cinzas."}
+    ]
+  },
+  "death": {
+    "player": ["O mundo esfria. Você cai, e a pedra úmida é a última coisa que sente."],
+    "hooded_man": ["O encapuzado cai de joelhos. O braço de metal ainda brilha, fraco, até apagar."]
+  }
+}
