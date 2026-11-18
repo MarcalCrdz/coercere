@@ -4,64 +4,25 @@
   "hp": 30,
   "vigor": 0,
   "regen": 0,
-  "actions": [
-    "metal_strike",
-    "sigil_flame",
-    "offer_blood"
+  "tags": [],
+  "intro": [
+    "Pedra úmida. Cheiro de ferro e cinza.",
+    "Você acorda de pé num corredor estreito, sem lembrar como chegou. Sua palma formiga; você sabe, sem saber como, que existe fogo dentro de você.",
+    "À sua frente, um homem encapuzado espera. Algo metálico range sob a manga dele.",
+    "— Fogo — ele diz, quase para si mesmo. — Sempre fogo."
   ],
+  "actions": ["metal_strike", "sigil_flame", "smear_sigils"],
   "behavior": {
     "rules": [
-      {
-        "when": {
-          "self_state": "blood_offered"
-        },
-        "do": "sigil_flame"
-      },
-      {
-        "when": {
-          "opponent_last": "fire",
-          "self_uses_below": {
-            "offer_blood": 1
-          }
-        },
-        "do": "offer_blood",
-        "chance": 0.7
-      },
-      {
-        "when": {
-          "opponent_last": "fire",
-          "self_hp_frac_below": 0.5,
-          "self_uses_below": {
-            "offer_blood": 2
-          }
-        },
-        "do": "offer_blood",
-        "chance": 0.6
-      },
-      {
-        "when": {
-          "opponent_last": "dodge"
-        },
-        "do": "metal_strike",
-        "chance": 0.8
-      },
-      {
-        "when": {
-          "opponent_last": "offer_blood"
-        },
-        "do": "sigil_flame",
-        "chance": 0.8
-      }
+      {"when": {"self_state": "blood_on_sigil"}, "do": "sigil_flame"},
+      {"when": {"opponent_last": "fire", "self_uses_below": {"smear_sigils": 1}}, "do": "smear_sigils", "chance": 0.7},
+      {"when": {"opponent_last": "fire", "self_hp_frac_below": 0.5, "self_uses_below": {"smear_sigils": 2}}, "do": "smear_sigils", "chance": 0.6},
+      {"when": {"opponent_last": "dodge"}, "do": "metal_strike", "chance": 0.8},
+      {"when": {"opponent_last": "offer_blood"}, "do": "sigil_flame", "chance": 0.8}
     ],
     "default": [
-      {
-        "do": "metal_strike",
-        "weight": 1
-      },
-      {
-        "do": "sigil_flame",
-        "weight": 1
-      }
+      {"do": "metal_strike", "weight": 1},
+      {"do": "sigil_flame", "weight": 1}
     ]
   },
   "observe": [
@@ -71,24 +32,21 @@
     },
     {
       "id": "sigils_red",
-      "when": {
-        "state": "blood_offered"
-      },
+      "when": {"state": "blood_on_sigil"},
       "text": "Os sigilos do braço brilham em vermelho molhado. Há sangue escorrendo pelo metal."
     },
     {
       "id": "wounded",
-      "when": {
-        "hp_frac_below": 0.5
-      },
+      "when": {"hp_frac_below": 0.5},
       "text": "A capa dele está chamuscada e a respiração, pesada."
     },
     {
       "id": "nearly_dead",
-      "when": {
-        "hp_frac_below": 0.2
-      },
+      "when": {"hp_frac_below": 0.2},
       "text": "Ele mal se mantém em pé."
     }
+  ],
+  "loot": [
+    {"item": "metal_arm", "label": "O braço de metal do encapuzado, ainda preso ao corpo na altura do ombro"}
   ]
 }

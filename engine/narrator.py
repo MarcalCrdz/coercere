@@ -31,14 +31,11 @@ class Narrator:
         return sum(1 for th in thresholds if frac < th["below"])
 
     # ------------------------------------------------------------------- partes
-    def intro(self):
-        return list(self.n.get("intro", []))
-
     def menu(self, action_ids):
         menu = self.n["menu"]
         return ["  %d. %s" % (i, menu[aid]["label"]) for i, aid in enumerate(action_ids, 1)]
 
-    def render(self, events, battle):
+    def render(self, events, battle=None):
         lines = []
         for ev in events:
             kind = ev["kind"]
@@ -73,12 +70,16 @@ class Narrator:
                 entry = self._entry(ev["action"], ev["actor"])
                 if entry.get("fail"):
                     lines.append(entry["fail"])
+            elif kind == "loot":
+                text = self.n.get("loot", {}).get(ev["item"])
+                if text:
+                    lines.append(text)
             elif kind == "death":
                 text = self.n.get("death", {}).get(ev["actor"])
                 if text:
                     lines.append(self._pick(text, t))
 
-        if battle.player.hp > 0:
+        if battle is not None and battle.player.hp > 0:
             lines.extend(self._body_lines(battle))
         return lines
 

@@ -1,24 +1,19 @@
 [
   {
     "id": "blood_amplifies_sigil",
-    "when": {
-      "source": "sigil",
-      "actor_state": "blood_offered"
-    },
-    "effect": {
-      "hits_multiplier": 3
-    },
-    "consume_state": "blood_offered"
+    "when": {"source": "sigil", "actor_state": "blood_on_sigil"},
+    "effect": {"hits_multiplier": 3},
+    "consume_state": "blood_on_sigil"
   },
   {
     "id": "blood_amplifies_innate",
-    "when": {
-      "source": "innate",
-      "actor_state": "blood_offered"
-    },
-    "effect": {
-      "damage_multiplier": 3
-    },
-    "consume_state": "blood_offered"
+    "when": {"source": "innate", "actor_state": "blood_on_hand"},
+    "effect": {"damage_multiplier": 3},
+    "consume_state": "blood_on_hand"
+  },
+  {
+    "id": "damp_resists_innate_fire",
+    "when": {"source": "innate", "tag": "fire", "target_tag": "damp"},
+    "effect": {"damage_multiplier": 0.5}
   }
 ]

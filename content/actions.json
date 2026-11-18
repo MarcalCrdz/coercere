@@ -1,73 +1,68 @@
 {
   "fire": {
-    "tags": [
-      "fire",
-      "projectile"
-    ],
+    "tags": ["fire", "projectile"],
     "source": "innate",
     "damage": 6,
     "hits": 1,
     "vigor_cost": 2
   },
   "strike": {
-    "tags": [
-      "physical",
-      "melee"
-    ],
+    "tags": ["physical", "melee"],
     "source": "body",
     "damage": 2,
     "hits": 1
   },
   "dodge": {
-    "tags": [
-      "defense"
-    ],
+    "tags": ["defense"],
     "source": "body",
     "vigor_cost": 1,
-    "sets_states": [
-      {
-        "name": "dodging",
-        "duration": 0
-      }
-    ]
+    "sets_states": [{"name": "dodging", "duration": 0}]
   },
   "observe": {
-    "tags": [
-      "perception"
-    ],
+    "tags": ["perception"],
     "source": "body",
     "observe": true
   },
   "offer_blood": {
-    "tags": [
-      "blood"
-    ],
+    "tags": ["blood"],
     "source": "body",
     "hp_cost": 2,
-    "sets_states": [
-      {
-        "name": "blood_offered",
-        "duration": 1
-      }
-    ]
+    "sets_states": [{"name": "blood_on_hand", "duration": 1}]
+  },
+  "smear_sigils": {
+    "tags": ["blood"],
+    "source": "sigil",
+    "hp_cost": 2,
+    "sets_states": [{"name": "blood_on_sigil", "duration": 2}]
   },
   "sigil_flame": {
-    "tags": [
-      "fire",
-      "projectile"
-    ],
+    "tags": ["fire", "projectile"],
     "source": "sigil",
     "damage": 5,
     "hits": 1
   },
   "metal_strike": {
-    "tags": [
-      "physical",
-      "melee",
-      "metal"
-    ],
+    "tags": ["physical", "melee", "metal"],
     "source": "metal",
     "damage": 6,
+    "hits": 1
+  },
+  "lumber": {
+    "tags": ["physical"],
+    "source": "body",
+    "sets_states": [{"name": "winding", "duration": 1}]
+  },
+  "crush": {
+    "tags": ["physical", "melee"],
+    "source": "body",
+    "damage": 9,
+    "hits": 1,
+    "dodgeable": true
+  },
+  "shove": {
+    "tags": ["physical", "melee"],
+    "source": "body",
+    "damage": 3,
     "hits": 1
   }
 }

@@ -1,0 +1,39 @@
+{
+  "id": "bloated_one",
+  "name": "o inchado",
+  "hp": 40,
+  "vigor": 0,
+  "regen": 0,
+  "tags": ["damp"],
+  "intro": [
+    "O corredor se abre numa sala baixa. O ar é úmido demais e cheira a algo doce que apodreceu.",
+    "No meio dela, uma coisa que já foi um homem: inchada, a pele esticada e brilhando de umidade. Não tem olhos. Vira a cabeça na direção da sua respiração."
+  ],
+  "actions": ["lumber", "crush", "shove"],
+  "behavior": {
+    "rules": [
+      {"when": {"self_state": "winding"}, "do": "crush"}
+    ],
+    "default": [
+      {"do": "lumber", "weight": 3},
+      {"do": "shove", "weight": 1}
+    ]
+  },
+  "observe": [
+    {
+      "id": "bloated_base",
+      "text": "Sem olhos, sem pressa. A pele dele está encharcada e esticada, e pinga um líquido turvo no chão."
+    },
+    {
+      "id": "bloated_winding",
+      "when": {"state": "winding"},
+      "text": "Os braços estão erguidos. A pele dos ombros range, quase rasgando."
+    },
+    {
+      "id": "bloated_wounded",
+      "when": {"hp_frac_below": 0.5},
+      "text": "A pele dele está aberta em vários pontos, e escorre mais do que devia."
+    }
+  ],
+  "loot": []
+}

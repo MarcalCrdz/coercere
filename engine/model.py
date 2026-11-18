@@ -13,7 +13,7 @@ from . import bot
 
 
 class Actor:
-    def __init__(self, actor_id, name, hp, vigor, regen, actions):
+    def __init__(self, actor_id, name, hp, vigor, regen, actions, tags=()):
         self.id = actor_id
         self.name = name
         self.max_hp = hp
@@ -22,6 +22,7 @@ class Actor:
         self.vigor = vigor
         self.regen = regen
         self.actions = list(actions)
+        self.tags = list(tags)
         self.states = {}          # nome do estado -> último turno em que ainda vale
         self.last_action = None   # última ação (pública) deste ator
         self.uses = {}            # id da ação -> quantas vezes usou
@@ -41,18 +42,31 @@ class Actor:
         return (self.vigor / float(self.max_vigor)) if self.max_vigor else 0.0
 
 
+def player_actions_for(content, inventory):
+    """Ações base do jogador + as concedidas pelos itens que ele carrega."""
+    actions = list(content["player"]["actions"])
+    for item_id in inventory:
+        for aid in content["items"][item_id].get("grants_actions", []):
+            if aid not in actions:
+                actions.append(aid)
+    return actions
+
+
 class Battle:
-    def __init__(self, content, seed=None):
+    def __init__(self, content, seed=None, inventory=()):
         self.content = content
         self.actions = content["actions"]
         self.rules = content["rules"]
         self.encounter = content["encounter"]
+        self.inventory = list(inventory)
         self.seed = seed if seed is not None else random.randrange(1, 10 ** 9)
         self.rng = random.Random(self.seed)
         p = content["player"]
         e = self.encounter
-        self.player = Actor("player", "você", p["hp"], p["vigor"], p.get("regen", 0), p["actions"])
-        self.enemy = Actor(e["id"], e["name"], e["hp"], e.get("vigor", 0), e.get("regen", 0), e["actions"])
+        self.player = Actor("player", "você", p["hp"], p["vigor"], p.get("regen", 0),
+                            player_actions_for(content, self.inventory))
+        self.enemy = Actor(e["id"], e["name"], e["hp"], e.get("vigor", 0), e.get("regen", 0),
+                           e["actions"], e.get("tags", []))
         self.turn = 0
         self.over = False
         self.result = None  # "victory" ou "defeat"
@@ -133,7 +147,7 @@ class Battle:
             actor.states[st["name"]] = t + st["duration"]
         group.append({"kind": "declare", "actor": actor.id, "action": aid, "turn": t})
 
-    def _rule_applies(self, rule, action, actor, t):
+    def _rule_applies(self, rule, action, actor, target, t):
         when = rule.get("when", {})
         if "source" in when and action["source"] != when["source"]:
             return False
@@ -141,15 +155,17 @@ class Battle:
             return False
         if "actor_state" in when and not actor.has_state(when["actor_state"], t):
             return False
+        if "target_tag" in when and when["target_tag"] not in target.tags:
+            return False
         return True
 
     def _resolve_attack(self, plan, group, pending, t):
         action, actor, target = plan["action"], plan["actor"], plan["target"]
         if "damage" not in action:
             return
-        hits, dmg = action["hits"], action["damage"]
+        hits, dmg = action["hits"], float(action["damage"])
 
-        applicable = [r for r in self.rules if self._rule_applies(r, action, actor, t)]
+        applicable = [r for r in self.rules if self._rule_applies(r, action, actor, target, t)]
         for rule in applicable:
             eff = rule.get("effect", {})
             hits *= eff.get("hits_multiplier", 1)
@@ -157,9 +173,11 @@ class Battle:
             if rule.get("consume_state"):
                 actor.states.pop(rule["consume_state"], None)
             group.append({"kind": "rule", "rule": rule["id"], "actor": actor.id, "turn": t})
+        hits = int(hits)
+        dmg = max(1, int(dmg))
 
         dodging = target.has_state("dodging", t)
-        if "projectile" in action["tags"] and dodging:
+        if action["dodgeable"] and dodging:
             group.append({"kind": "dodged", "actor": actor.id, "action": action["id"],
                           "count": hits, "turn": t})
             return

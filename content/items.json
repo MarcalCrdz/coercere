@@ -1,0 +1,8 @@
+
+{
+  "metal_arm": {
+    "name": "braço de metal",
+    "description": "Um braço de metal escuro, arrancado na altura do ombro. Sigilos finos correm por ele como veias, agora apagados.",
+    "grants_actions": ["smear_sigils", "sigil_flame"]
+  }
+}

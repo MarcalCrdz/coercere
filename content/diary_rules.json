@@ -16,7 +16,7 @@
   },
   {
     "id": "enemy_cut_finger",
-    "match": {"kind": "declare", "actor": "hooded_man", "action": "offer_blood"},
+    "match": {"kind": "declare", "actor": "hooded_man", "action": "smear_sigils"},
     "text": "O encapuzado mordeu o próprio dedo até sangrar e passou o sangue pelos sigilos do braço."
   },
   {
@@ -43,5 +43,45 @@
     "id": "fire_empty",
     "match": {"kind": "fail", "actor": "player", "action": "fire"},
     "text": "Tentei soltar o fogo e nada respondeu. Havia só cinza dentro de mim."
+  },
+  {
+    "id": "loot_arm",
+    "match": {"kind": "loot", "item": "metal_arm"},
+    "text": "Arranquei o braço de metal do encapuzado. Os sigilos apagaram, mas continuam desenhados nele."
+  },
+  {
+    "id": "player_smear_arm",
+    "match": {"kind": "declare", "actor": "player", "action": "smear_sigils"},
+    "text": "Passei meu sangue nos sigilos do braço arrancado. Eles acenderam, vermelhos."
+  },
+  {
+    "id": "player_three_flames",
+    "match": {"kind": "rule", "rule": "blood_amplifies_sigil", "actor": "player"},
+    "text": "Com meu sangue nos sigilos, o braço arrancado lançou três chamas de uma vez."
+  },
+  {
+    "id": "bloated_look",
+    "match": {"kind": "observe_line", "line_id": "bloated_base"},
+    "text": "O inchado não tem olhos. A pele dele está encharcada e esticada, e pinga um líquido turvo."
+  },
+  {
+    "id": "bloated_raise",
+    "match": {"kind": "declare", "actor": "bloated_one", "action": "lumber"},
+    "text": "O inchado ergueu os dois braços, devagar, com a pele rangendo."
+  },
+  {
+    "id": "bloated_crush",
+    "match": {"kind": "declare", "actor": "bloated_one", "action": "crush"},
+    "text": "Os braços do inchado desceram como martelos."
+  },
+  {
+    "id": "bloated_crush_dodged",
+    "match": {"kind": "dodged", "actor": "bloated_one"},
+    "text": "Me joguei de lado e os braços dele racharam o chão onde eu estava."
+  },
+  {
+    "id": "fire_on_damp",
+    "match": {"kind": "rule", "rule": "damp_resists_innate_fire", "actor": "player"},
+    "text": "Meu fogo chiou contra a pele molhada do inchado e fez pouco estrago."
   }
 ]
